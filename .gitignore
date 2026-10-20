@@ -1,0 +1,9 @@
+# WorkBuddy 本地会话数据（不纳入版本控制）
+.workbuddy/
+
+# 构建产物（各工程目录内另有各自的 .gitignore）
+build/
+
+# 系统与编辑器杂项
+.DS_Store
+Thumbs.db
