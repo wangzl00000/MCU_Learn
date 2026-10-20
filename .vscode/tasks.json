@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "STM32: 编译",
+            "type": "process",
+            "command": "C:/Users/WZL/AppData/Local/STM32Cube/bundles/cmake/4.4.0+st.1/bin/cmake.exe",
+            "args": [
+                "--build",
+                "--preset",
+                "Debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "STM32: 仅烧录 (STM32_Programmer_CLI)",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-NoProfile",
+                "-Command",
+                "$cli = Get-ChildItem \"$env:LOCALAPPDATA\\STM32Cube\\bundles\\programmer\\*\\bin\\STM32_Programmer_CLI.exe\" -ErrorAction SilentlyContinue | Sort-Object FullName -Descending | Select-Object -First 1; if (-not $cli) { throw 'STM32_Programmer_CLI.exe not found' }; & $cli.FullName -c port=SWD -w \"${workspaceFolder}\\build\\Debug\\test.elf\" -v -rst"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "STM32: 编译"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
